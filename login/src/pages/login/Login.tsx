@@ -5,6 +5,8 @@ const Login = (props: any) => {
   const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+
+
   const submitHandler = async (e:any) => {
     e.preventDefault()
     const response = await fetch('http://localhost:3000/users');
@@ -14,16 +16,13 @@ const Login = (props: any) => {
 
     const activeName = names.find(na => na === name);
     const activePassword = passwords.find(na => na === password);
-    localStorage.setItem('username', activeName);
-    localStorage.setItem('userpassword', activePassword);
-    const storedName = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('userpassword');
-    if(storedName && storedPassword) {
-      props.setToken(true);
-      window.location.href = '/profile';
+
+
+    if(activeName && activePassword) {
+      localStorage.setItem('username', activeName);
+      localStorage.setItem('userpassword', activePassword);
+      
     }
-    // props.setToken = activeName;
-    // console.log(activeName);
   };
   
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.scss";
 import Header from "./pages/headre/header";
 import Profile from "../src/pages/profile/profile";
@@ -10,10 +10,20 @@ function App(props: any) {
 
   console.log(token);
 
+  useEffect(() => {
+    const storedName = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('userpassword');
+    if(storedName && storedPassword) {
+      setToken(true);
+      window.location.href = '/profile';
+      
+    }
+  },);
+
   return (
     <div className="wrapper">
       <Header />
-      {!token && <Login setToken = {setToken}/>}
+      {!token && <Login/>}
       <Routes>
         <Route path="/profile" element={<Profile />} />
       </Routes>
