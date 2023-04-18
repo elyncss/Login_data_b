@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./login.scss";
 
-const Login = () => {
+const Login = (props: any) => {
+  const [name, setName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-    const [users, setUsers] = useState([]);
+  const submitHandler = async (e:any) => {
+    e.preventDefault()
+    const response = await fetch('http://localhost:3000/users');
+    const data = await response.json();
+    const names = data.map(item => (item.name))
+    const passwords = data.map(item => (item.password))
 
-
-    useEffect(() => {
-        fetch("http://localhost:3000/users")
-    .then(Response => Response.json())
-    .then(users => setUsers(users));
-    }, [])
-
-    console.log(users);
-
-    const submitHandler =(e: any) => {
-        e.preventDefault();
+    const activeName = names.find(na => na === name);
+    const activePassword = passwords.find(na => na === password);
+    localStorage.setItem('username', activeName);
+    localStorage.setItem('userpassword', activePassword);
+    const storedName = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('userpassword');
+    if(storedName && storedPassword) {
+      props.setToken(true);
+      window.location.href = '/profile';
     }
-
+    // props.setToken = activeName;
+    // console.log(activeName);
+  };
+  
 
 
   return (
@@ -25,9 +33,9 @@ const Login = () => {
       <h1>Signin</h1>
       <form onSubmit={submitHandler}>
         <label htmlFor="name">name</label>
-        <input type="text" id="name" onChange={}/>
+        <input type="text" id="name" onChange={(e) => setName(e.target.value)}/>
         <label htmlFor="password">password</label>
-        <input type="text" id="password" />
+        <input type="password" id="password"  onChange={(e) => setPassword(e.target.value)}/>
         <input type="submit" className="btn" />
       </form>
     </div>

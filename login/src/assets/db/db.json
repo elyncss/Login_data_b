@@ -6,18 +6,15 @@
       "password": "12345"
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Orxan",
-      "password": "12345"
+      "password": "12346"
     },
     {
-      "id": 1,
+      "id": 3,
       "name": "Nurlan",
-      "password": "12345"
+      "password": "12347"
     }
-
+    
   ]
 }
-
-
-

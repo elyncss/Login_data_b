@@ -1,17 +1,24 @@
-import Login from "./pages/login/Login"
+import { useState } from "react";
 import "./App.scss";
 import Header from "./pages/headre/header";
+import Profile from "../src/pages/profile/profile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/login/Login";
 
+function App(props: any) {
+  const [token, setToken] = useState(false);
 
-
-function App() {
+  console.log(token);
 
   return (
-    <div className="App">
+    <div className="wrapper">
       <Header />
-      <Login />
+      {!token && <Login setToken = {setToken}/>}
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
