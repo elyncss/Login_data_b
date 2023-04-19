@@ -1,9 +1,22 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Login = (props: any) => {
   const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedName = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('userpassword');
+    if(storedName && storedPassword) {
+      props.setToken(true);
+
+      
+    }
+  }, []);
 
 
 
@@ -21,8 +34,23 @@ const Login = (props: any) => {
     if(activeName && activePassword) {
       localStorage.setItem('username', activeName);
       localStorage.setItem('userpassword', activePassword);
+      props.setToken(true);
+      navigate('/profile');
       
+    }else {
+      console.log('wrong name and password')
+      toast.error(' Wrong name and password!', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
+    
   };
   
 

@@ -1,0 +1,13 @@
+@import "../../assets/styles/index.scss";
+
+.profile {
+    background-color: #f2f2f2;
+    width: rem(450);
+    height: rem(300);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: rem(25);
+    margin-top: rem(50);}
